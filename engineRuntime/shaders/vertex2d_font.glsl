@@ -7,7 +7,7 @@ layout(location = 2) in vec3 vertexNormal;
 
 layout(push_constant) uniform PushConstants { // JE_TRANSLATE
     mat4 model;
-    mat4 normal;
+    mat4 character_data;
 };
 
 layout(set = 0, binding = 0) uniform UBO { // JE_TRANSLATE
@@ -21,14 +21,15 @@ layout(set = 0, binding = 0) uniform UBO { // JE_TRANSLATE
 
 layout(location = 0) out vec3 vpos;
 layout(location = 1) out vec2 uv;
-layout(location = 2) out vec3 vnorm;
+layout(location = 2) flat out uint character;
+layout(location = 3) out vec3 fontcolor;
 
 void main() {
-    vec3 vpm = vertexPosition_modelspace;
-    gl_Position = (_2dProj * model) * vec4(vpm,1);
-    vec4 pos = (model * vec4(vpm,1));
-    vec4 normalv4 = (normal * vec4(vertexNormal,1));
+    vec3 vpm = vec3(vertexPosition_modelspace.x + character_data[0][0], vertexPosition_modelspace.y*-1 + character_data[0][1], 0);
+    gl_Position = (_2dProj * model) * vec4(vpm, 1);
+    vec4 pos = (model * vec4(vpm, 1));
     vpos = pos.xyz;
+    character = floatBitsToUint(character_data[0][2]);
     uv = vertexUV;
-    vnorm = normalv4.xyz;
+    fontcolor = vec3(character_data[1][0], character_data[1][1], character_data[1][2]);
 }

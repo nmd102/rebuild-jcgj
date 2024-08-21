@@ -245,6 +245,7 @@ std::vector<Renderable> loadObj(const std::vector<unsigned char>& fileContents, 
     return renderableList;
 }
 
+/*
 std::vector<Renderable> loadObj(const std::string& path, unsigned int shaderProgram, const std::vector<unsigned int>& desc, const bool manualDepthSort) {
     if (objMap.contains(path)) {
         std::vector<Renderable> copied;
@@ -278,7 +279,7 @@ std::vector<Renderable> loadObj(const std::string& path, unsigned int shaderProg
     std::vector<Renderable> renderableList = loadObj(fileContents, shaderProgram, desc, manualDepthSort);
     objMap.insert({path, renderableList});
     return renderableList;
-}
+}*/
 
 std::vector<Renderable> loadBundledObj(const std::string& path, const std::string& bundleFileName,  unsigned int shaderProgram, const std::vector<unsigned int>& desc, const bool manualDepthSort) {
     if (objMap.contains(path)) {
@@ -302,4 +303,8 @@ std::vector<Renderable> loadBundledObj(const std::string& path, const std::strin
     std::vector<Renderable> renderableList = loadObj(fileContents, shaderProgram, desc, manualDepthSort);
     objMap.insert({path, renderableList});
     return renderableList;
+}
+
+std::vector<Renderable> loadObj(const std::string& path, unsigned int shaderProgram, const std::vector<unsigned int>& desc, const bool manualDepthSort) {
+    return loadBundledObj(path, "./obj_bundle.jbd", shaderProgram, desc, manualDepthSort);
 }
