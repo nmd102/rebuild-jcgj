@@ -6,6 +6,7 @@
 #include "engine/gfx/modelutil.h"
 #include "engine/engine.h"
 #include <vector>
+#include <bit>
 
 vec2 temp_pos;
 vec2 temp_size;

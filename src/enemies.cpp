@@ -10,6 +10,7 @@
 #include "gamephysicslib.h"
 #include <random>
 #include "engine/sound/audioutil.h"
+#include <bit>
 
 int enemyMax = 0;
 
